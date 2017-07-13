@@ -1,7 +1,10 @@
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
 class Tweet(models.Model):
+    # add user
+    user        = models.ForeignKey(settings.AUTH_USER_MODEL)
     content     = models.CharField(max_length=140) # max_length of a tweet post or message.
     updated     = models.DateTimeField(auto_now=True)
     timestamp   = models.DateTimeField(auto_now_add=True)
