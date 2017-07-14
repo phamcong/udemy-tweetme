@@ -10,7 +10,8 @@ class TweetDetailView(DetailView):
     queryset = Tweet.objects.all()
 
     def get_object(self):
-        return Tweet.objects.get(id=1)
+        id = self.kwargs.get('id')
+        return Tweet.objects.get(id=id) # we can use get_object_or_404(Tweet, id=id)
 
 class TweetListView(ListView):
     # template_name = "list_view.html" # use this if template file is different with default name: tweet_list.html.
