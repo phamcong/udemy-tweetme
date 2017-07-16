@@ -7,7 +7,7 @@ from .models import Tweet
 # admin.site.register(Tweet)
 
 class TweetModelAdmin(admin.ModelAdmin):
-    form = TweetModelForm
+    # form = TweetModelForm # We have this in forms.py, so remove it form admin.
     class Meta:
         model = Tweet
 
