@@ -20,7 +20,8 @@ from .mixins import FormUserNeededMixin, UserOwnerMixin
 class TweetCreateView(FormUserNeededMixin, CreateView):
     form_class = TweetModelForm
     template_name = 'tweets/tweet_create.html'
-    success_url = '/tweet/create/'
+    # success_url = '/tweet/create/'
+    # success_url = reverse_lazy("tweet:detail")
 
 class TweetUpdateView(UserOwnerMixin, UpdateView):
     queryset = Tweet.objects.all()
@@ -30,7 +31,7 @@ class TweetUpdateView(UserOwnerMixin, UpdateView):
 
 class TweetDeleteView(DeleteView):
     model = Tweet
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("list") # or some named url like "create", "detail". We can add app namespace like. "tweet:list".
 
 class TweetDetailView(DetailView):
     queryset = Tweet.objects.all()

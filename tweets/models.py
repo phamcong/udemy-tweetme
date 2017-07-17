@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 from django.db import models
 from .validators import validate_content
 # Create your models here.
@@ -10,6 +11,9 @@ class Tweet(models.Model):
     content     = models.CharField(max_length=140, validators=[validate_content]) # max_length of a tweet post or message.
     updated     = models.DateTimeField(auto_now=True)
     timestamp   = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse("tweet:detail", kwargs={"pk":self.pk})
 
     def __str__(self):
         return str(self.content)
