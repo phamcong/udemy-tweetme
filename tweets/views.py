@@ -1,19 +1,20 @@
 from django.shortcuts import render
+from django import forms
+from django.forms.utils import ErrorList
 from django.views.generic import DetailView, ListView, CreateView
 
 from .forms import TweetModelForm
 from .models import Tweet
+from .mixins import FormUserNeededMixin
 
 # Create your views here.
 # CLASS based views
-class TweetCreateView(CreateView):
-    form_class = TweetModelForm
-    template_name = 'tweets/create_form.html'
-    success_url = '/tweet/create/'
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(TweetCreateView, self).form_valid(form)
+# Check logged in user: FormUserNeededMixin. We can use also LoginRequired mixin.
+class TweetCreateView(FormUserNeededMixin, CreateView):
+    form_class = TweetModelForm
+    template_name = 'tweets/tweet_create.html'
+    success_url = '/tweet/create/'
 
 class TweetDetailView(DetailView):
     # template_name = "detail_view.html"
