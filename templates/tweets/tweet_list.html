@@ -1,13 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>List Tweet</h1>
-  {% include "tweets/tweet_search_form.html" %}
-
-  {% for obj in object_list %}
-    {{ obj.content }} <br>
-    {{ obj.user }} <br>
-    {{ obj.timestamp }} <br>
-    {{ obj.pk }} <br>
-    <br>
-  {% endfor %}
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      {% include "tweets/tweet_search_form.html" %}
+      {% for obj in object_list %}
+        <div class="media">
+          <div class="media-left">
+            <a href="#">
+              {% if object.image %}
+                <img class="media-object" src="..." alt="...">
+              {% endif %}
+            </a>
+          </div>
+          <div class="media-body">
+            {{ obj.content }} <br>
+            via {{ obj.user }}  {{ obj.timestamp|timesince }} ago | <a href="{{ obj.get_absolute_url }}">View</a> <br>
+          </div>
+          <hr>
+        </div>
+        <br>
+      {% endfor %}
+    </div>
+  </div>
 {% endblock content %}
