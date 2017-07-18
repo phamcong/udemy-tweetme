@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>List Tweet</h1>
+  {% include "tweets/tweet_search_form.html" %}
+
+  {% for obj in object_list %}
+    {{ obj.content }} <br>
+    {{ obj.user }} <br>
+    {{ obj.timestamp }} <br>
+    {{ obj.pk }} <br>
+    <br>
+  {% endfor %}
+{% endblock content %}
