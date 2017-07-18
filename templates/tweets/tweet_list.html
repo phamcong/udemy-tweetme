@@ -1,4 +1,6 @@
 <h1>List</h1>
+{% include "tweets/tweet_search_form.html" %}
+
 {% for obj in object_list %}
   {{ obj.content }} <br>
   {{ obj.user }} <br>

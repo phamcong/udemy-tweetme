@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django import forms
+from django.db.models import Q
 from django.forms.utils import ErrorList
 from django.views.generic import (
     DetailView,
@@ -42,7 +43,17 @@ class TweetDetailView(DetailView):
 
 class TweetListView(ListView):
     # template_name = "list_view.html" # use this if template file is different with default name: tweet_list.html.
-    queryset = Tweet.objects.all()
+    # queryset = Tweet.objects.all()
+
+    def get_queryset(self, *args, **kwargs):
+        qs = Tweet.objects.all()
+        query = self.request.GET.get("q", None)
+        if query is not None:
+            query_result = qs.filter(
+                Q(content__icontains=query) |
+                Q(user__username__icontains=query)
+            )
+        return query_result
 
     def get_context_data(self, *args, **kwargs):
         context = super(TweetListView, self).get_context_data(*args, **kwargs)
