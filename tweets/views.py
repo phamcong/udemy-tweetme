@@ -49,11 +49,11 @@ class TweetListView(ListView):
         qs = Tweet.objects.all()
         query = self.request.GET.get("q", None)
         if query is not None:
-            query_result = qs.filter(
+            qs = qs.filter(
                 Q(content__icontains=query) |
                 Q(user__username__icontains=query)
             )
-        return query_result
+        return qs
 
     def get_context_data(self, *args, **kwargs):
         context = super(TweetListView, self).get_context_data(*args, **kwargs)
