@@ -1,5 +1,5 @@
 from django.conf.urls import url
-
+from django.views.generic.base import RedirectView
 from .views import (
     TweetDetailView,
     TweetListView,
@@ -10,7 +10,8 @@ from .views import (
 )
 
 urlpatterns = [
-    url(r'^$', TweetListView.as_view(), name='list'),
+    url(r'^$', RedirectView.as_view(url="/")),
+    url(r'^search/$', TweetListView.as_view(), name='list'),
     url(r'^create/$', TweetCreateView.as_view(), name='create'), # /tweet/create
     # url(r'^create/$', tweet_create_view, name='create'),
     url(r'^(?P<pk>\d+)/$', TweetDetailView.as_view(), name='detail'), # /tweet/1
