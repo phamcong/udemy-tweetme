@@ -18,6 +18,9 @@ class Tweet(models.Model):
     def __str__(self):
         return str(self.content)
 
+    # class Meta:
+    #     ordering = ['-timestamp', 'content'] # use to order tweets by fields.
+
     # This validation function works but the error doesnt appear at the field containing errors.
     # We define inline validation function for each field of form.
     # def clean(self, *args, **kwargs):
